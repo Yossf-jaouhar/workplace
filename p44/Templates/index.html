@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Artists</title>
+	<link rel="stylesheet" href="/assets/styles.css">
+	<link rel="stylesheet" href="/assets/filter.css">
+	
+</head>
+
+<body>
+	<div class="tit">
+		<h1>Groupie Tracker</h1>
+	</div>
+
+	
+
+	<div class="search-container">
+		<form action="/search" method="GET">
+			<input type="text" name="SeArch" placeholder="Search" list="option">
+
+			<datalist id="option">
+				{{range .Artists}}
+				<option value="{{.Name}}">{{.Name}} - artist/band name </option>
+				<option value="{{.CreationDate}}">{{.CreationDate}} - creation date</option>
+				<option value="{{.FirstAlbum}}">{{.FirstAlbum}} - first album date </option>
+					{{range .Members }}
+					<option value="{{.}}">{{.}} - members</option>
+					{{end}}
+				{{end}}
+				
+				{{range $key, $value := .UniqueLocations}}
+						<option value="{{ $key }}">{{ $key }} --- locations</option>
+				{{ end }}
+			
+			</datalist>
+		
+
+		</form>
+	</div>
+
+
+	<div class="filter">
+		<input id="filt" type="radio" name="filter-option">
+		<label for="filt">Filter</label>
+		<div>
+		
+			<form action="/filters" method="POST">
+				<div>
+					<label for="location">Location:</label>
+                    <select id="locationSelect" name="location">
+                        <option value="">(Select or write one)</option>
+                        {{range $key, $value := .UniqueLocations}}
+                        <option value="{{ $key }}">{{ $key }}</option>
+                        {{ end }}
+                    </select>
+		     	</div>
+				    <label for="member">Members:</label>
+				        <div id="member" class="members">
+				        	<label>
+				        		<input type="checkbox" name="member" value="1"> 1	
+				        	</label>
+				        	<label>
+				        		<input type="checkbox" name="member" value="2"> 2
+				        	</label>
+				        	<label>
+				        		<input type="checkbox" name="member" value="3"> 3
+				        	</label>
+				        	<label>
+				        		<input type="checkbox" name="member" value="4"> 4
+				        	</label>
+				        	<label>
+				        		<input type="checkbox" name="member" value="5"> 5
+				        	</label>
+				        	<label>
+				        		<input type="checkbox" name="member" value="6"> 6
+				        	</label>
+				        	<label>
+				        		<input type="checkbox" name="member" value="7"> 7
+				        	</label>
+				        	<label>
+				        		<input type="checkbox" name="member" value="8"> 8
+				        	</label>
+				        </div>
+
+					
+
+					<label for="CreationDate">CreationDate:
+					        <div id="CreationDate">
+					        	<label for="CreationDate-start"></label>
+					        	<input type="range" id="CreationDate-start" name="CreationDate-start" min="1950" max="2024" value="" oninput="this.nextElementSibling.value = this.value">
+					        	<output></output> 
+					
+					        	<label for="CreationDate-end"></label>
+					        	<input type="range" id="CreationDate-end" name="CreationDate-end" min="1950" max="2024" value="" oninput="this.nextElementSibling.value = this.value">
+					        	<output></output> 
+					        </div>
+			     	</label>
+
+					 <label for="FirstAlbum">FirstAlbum:
+						<div id="FirstAlbum">
+
+							<label for="FirstAlbum-start"></label>
+							<input type="range" id="FirstAlbum-start" name="FirstAlbum-start" min="1950" max="2024" value="" oninput="this.nextElementSibling.value = this.value">
+							<output></output> 
+				
+							<label for="FirstAlbum-end"></label>
+							<input type="range" id="FirstAlbum-end" name="FirstAlbum-end" min="1950" max="2024" value="" oninput="this.nextElementSibling.value = this.value">
+							<output></output>
+
+						</div>
+				 </label>
+
+				
+				<div>
+				   <button class="submit" type="submit">Submit</button>
+			    </div>
+
+
+			</form>
+			
+			<div  class="divskip">
+				<input type="radio" id="skip" name="filter-option">
+				<label for="skip" class="skip">Skip⬆️</label>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="artists-container">
+		{{if .SearchArt}}
+		{{range .SearchArt}}
+		<div class="artist-card">
+
+			<a href="/Artist/{{.ID}}">
+				<img src="{{.Image}}" alt="{{.Name}} Image">
+			</a>
+			<h2 class="NameOfArtist" name="artistName" value="{{.Name}}">{{.Name}}🎶</h2>
+
+			<h2 class="CreationDateoftheartist"><strong>Creation Date:</strong>{{.CreationDate}}</h2>
+
+		</div>
+
+
+
+		{{end}}
+		  {{else}}
+		        <div class="artnf">
+		        	<p> Artist Not Found</p>
+		        </div>
+		  {{end}}
+	</div>
+	<div class="botona">
+		<a class="ok" href="../">GO BACK</a>
+	</div>
+</body>
+
+</html>

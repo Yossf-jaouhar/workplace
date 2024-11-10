@@ -1,0 +1,77 @@
+.filter{
+    text-align: center;
+    position: relative;
+}
+
+.filter input[type="radio"] {
+    opacity: 0;
+} 
+
+.filter > label{
+    padding: 10px 20px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    background-color: #0a2351;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 19px;
+}
+
+
+/* css here */
+.filter > div {
+    transition: .6s;
+    background-color: #306b86;
+    margin-top: 10px;
+    padding: 30px;
+    border-radius: 20px;
+    position: absolute;
+    top: -100svh;
+    left: 50%;
+    translate: -50%;
+    z-index: 99;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter input[type="radio"]:checked ~ div{
+    transition: .6s;
+    top: 50px;
+}
+
+.small-label {
+    text-align: center;
+    font-size: 12px; 
+    margin-bottom: 5px;
+    width: 50%;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: inline-block;
+}
+.submit{
+    display: inline-block;
+    padding: 10px 	20px;
+    background-color: #003335;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.divskip{
+
+    margin-right: 100%;
+}
+
+.skip{
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+

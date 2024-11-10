@@ -1,0 +1,32 @@
+package main
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+	"time"
+)
+
+func main() {
+	// Set a timeout for the context
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel() // Cancel the context when main function completes
+
+	// Create a request with the context
+	req, err := http.NewRequestWithContext(ctx, "GET", "https://google.com:80/", nil)
+	if err != nil {
+		fmt.Println("Error creating request:", err)
+		return
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Go-http-client)")
+
+	// Send the request
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		fmt.Println("Request error:", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("Response status:", resp.Status)
+}
