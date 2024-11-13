@@ -2,21 +2,16 @@ package main
 
 import (
 	"fmt"
-	"io"
-	"log"
 	"net"
 	"os"
-	"strings"
 	"sync"
-	"time"
 )
 
-
+var port = "8989"
 
 var (
-	USERS = make(map[string]net.Conn)
-	port  = "8989"
-	mu    sync.Mutex
+	clients     = make(map[net.Conn]string)
+	clientsLock sync.Mutex
 )
 
 func main() {
@@ -24,207 +19,72 @@ func main() {
 		port = os.Args[1]
 	}
 
-	les, err := net.Listen("tcp", ":"+port)
+	ls, err := net.Listen("tcp", ":"+port)
 	if err != nil {
-		log.Fatal("here1", err)
+		fmt.Println("err to lesnning", err)
+		return
 	}
 
 	for {
-		con, er := les.Accept()
-		if er != nil {
-			fmt.Println("err1", err)
+		con, err := ls.Accept()
+		if err != nil {
+			fmt.Println("err to ", err)
 			continue
 		}
 
-		go HandleConnection(con)
+		go handlercon(con)
 	}
 }
 
-func HandleConnection(con net.Conn) {
-	defer con.Close()
-	if len(USERS) == 10 {
-		con.Write([]byte("Room is full only 10 people allowed"))
-		con.Close()
+func handlercon(con net.Conn) {
+
+	defer func() {
+		clientsLock.Lock()
+		delete(clients, con)
+		clientsLock.Unlock()
+	}()
+	
+	_, err := con.Write([]byte("your name??"))
+	if err != nil {
 		return
 	}
 
-	greeting := "Welcome to TCP-Chat!\n         _nnnn_\n        dGGGGMMb\n       @p~qp~~qMb\n       M|@||@) M|\n       @,----.JM|\n      JS^\\__/  qKL\n     dZP        qKRb\n    dZP          qKKb\n   fZP            SMMb\n   HZM            MMMM\n   FqM            MMMM\n __| \".        |\\dS\"qML\n |    `.       | `' \\Zq\n_)      \\.___.,|     .'\n\\____   )MMMMMP|   .'\n     `-'       `--'"
-	con.Write([]byte(greeting))
-	name := login(con, 0)
-    if name == "" {
-		con.Write([]byte("\033[F\ntoo many attempts"))
-
-		con.Close()
+	buffer := make([]byte, 1024)
+	n, err := con.Read(buffer)
+	if err != nil {
 		return
 	}
 
-    chat(con, name)
-	disconect(con, name)
-	delete(USERS, name)
-}
-
-func login(con net.Conn, spam int) string {
-	if spam == 5 {
-		return ""
-	}
-
-	connFile, err := os.OpenFile("netcat-connection_"+port+".log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
-	if err != nil {
-		return ""
-	}
-	defer connFile.Close()
-
-	date := time.Now().Format(time.DateTime)
-
-	username := ""
-
-	buffer := make([]byte, 1024)
-
-	con.Write([]byte("\n[ENTER YOUR NAME]:"))
-
-	for {
-		n, err := con.Read(buffer)
-		if err == io.EOF {
-			return ""
+	username := string(buffer[:n])
+	validationMsg := validstring(username)
+	for validationMsg != "" {
+		if len(clients) > 1 {
+			return
 		}
-
-		username += string(buffer[:n-1])
-		if err != nil {
-			break
-		}
-		if strings.Contains(string(buffer), "\n") {
-			break
-		}
-	}
-
-	status := checkUsername(username, con)
-
-
-    if status != "" {
-        con.Write([]byte(status))
-        return login(con, spam+1)
-    } else {
-        oldchat , err := os.ReadFile("netcat-chat_" + port + ".log")
-        if err != nil {
-            con.Write([]byte("connot access oldchat\n[" + date + "][" + username + "]:"))
-        } else {
-			con.Write(oldchat)
-			con .Write([]byte("[" + date + "][" + username + "]:"))
-		}
-    }
-
-    for user, Conn := range USERS {
-		if user != username {
-			Conn.Write([]byte("\n" + username + " has joined our chat...\n[" + date + "][" + user + "]:"))
-		}
-	}
-
-    connFile.Write([]byte(username + " has joined our chat...\n"))
-	return username
-}
-
-func checkUsername(username string, con net.Conn) string {
-	mu.Lock()
-    defer mu.Unlock()
-
-
-	if len(username) < 3 {
-		return "username too small"
-	}
-	if USERS[username] != nil {
-		return "username already used"
-	}
-	if len(username) > 25 {
-		return "username too long"
-	}
-	if !validchars(username) {
-		return "only use latin letters and \"-\""
-	}
-	if len(USERS) == 10 {
-		return "room is full"
-	}
-	USERS[username] = con
-	return ""
-}
-
-func validchars(s string) bool {
-	for _, v := range s {
-		if !((v >= 'a' && v <= 'z') || (v >= 'A' && v <= 'Z') || v == '-') {
-			return false
-		}
-	}
-	return true
-}
-
-
-
-
-func chat(con net.Conn , name string){
-    chatFile, err := os.OpenFile("netcat-chat_"+port+".log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	msgPrefix := "[" + time.Now().Format(time.DateTime) + "][" + (name) + "]:"
-	msg := ""
-	buffer := make([]byte, 1024)
-	for {
-		n, err := (con).Read(buffer)
+		_, err := con.Write([]byte(validationMsg + "\nPlease enter a valid name: "))
 		if err != nil {
 			return
 		}
-		msg += string(buffer[:n-1])
-		if strings.Contains(string(buffer), "\n") {
-			break
+		n, err = con.Read(buffer)
+		if err != nil {
+			return
 		}
+		username = string(buffer[:n])
+		validationMsg = validstring(username)
 	}
-	msg = strings.TrimSpace(msg)
-	if !Validmsg(msg, con) {
-		(con).Write([]byte("\033[2K[" + time.Now().Format(time.DateTime) + "][" + (name) + "]:"))
-	} else {
-		for name, conn := range USERS {
-			if conn != (con) {
-				conn.Write([]byte("\a\n" + msgPrefix + msg + "\n"))
-			}
-			conn.Write([]byte("[" + time.Now().Format(time.DateTime) + "][" + name + "]:"))
 
-		}
-		fmt.Fprint(chatFile, msgPrefix+msg+"\n")
-	}
-	chatFile.Close()
-	chat(con, name)
+	clientsLock.Lock()
+	clients[con] = username
+	clientsLock.Unlock()
+	fmt.Println("New client:", username)
+
 }
 
-
-func disconect(conn net.Conn, name string) {
-	connFile, err := os.OpenFile("netcat-connection_"+port+".log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
-	if err != nil {
-		return
+func validstring(name string) string {
+	if len(name) > 25 {
+		return "Name is too long; maximum 25 characters."
+	} else if len(name) < 3 {
+		return "Name is too short; minimum 3 characters."
 	}
-	defer connFile.Close()
-	for user, c := range USERS {
-		if c != (conn) {
-			c.Write([]byte("\n" + name + " has left our chat...\n[" + time.Now().Format(time.DateTime) + "][" + user + "]"))
-		}
-	}
-	connFile.Write([]byte(name + " has left our chat...\n"))
-}
-
-
-
-func Validmsg(msg string, conn net.Conn) bool {
-	if len(msg) > 255 {
-		fmt.Fprintln((conn), "message too long....")
-		return false
-	}
-	if msg == "" {
-		fmt.Fprint((conn), "\033[F")
-		return false
-	}
-	for _, v := range msg {
-		if (v < 32 || v > 126) && (v < 128 || v > 255) {
-			fmt.Fprintln((conn), "invalid characters....")
-			return false
-		}
-	}
-	return true
+	return ""
 }

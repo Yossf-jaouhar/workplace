@@ -14,5 +14,25 @@ func main() {
 }
 
 func diagonalDifference(arr [][]int32) int32 {
-		
+	
+	var a int32
+	var b int32
+
+	for i:=0; i < len(arr); i++ {
+		a += arr[i][i]
+	
+
+	}
+
+	l := len(arr)
+	for i:=0; i < len(arr); i++ {
+		b += arr[i][l-1]
+
+	
+
+		l--
+	}
+
+	v := a - b
+	return v
 }
