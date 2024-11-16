@@ -12,13 +12,13 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	r.ParseForm()
+	//r.ParseForm()
 	////
-	Members := r.Form["member"]
-
+	
 	/////
 	Location := r.FormValue("location")
-
+	
+	Members := r.Form["member"]
 	///////
 	CreationStart := r.FormValue("CreationDate-start")
 	CreationStartInt, _ := strconv.Atoi(CreationStart)

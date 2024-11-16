@@ -35,19 +35,23 @@ func main() {
 		fmt.Println("Error reading file:", err)
 		return
 	}
-	Average(nms)
+	cc := Average(nms)
+	fmt.Printf("Median: %2f\n", cc)
 
 	vv := Median(nms)
     fmt.Printf("Median: %2f\n", vv)
 
-	Variance(nms)
+	ve := Variance(nms)
+	fmt.Printf("Median: %2f\n", ve)
 }
 
 
-func Average(nms []int){
+
+
+func Average(nms []int) float64 {
 	if len(nms) == 0 {
 		fmt.Println("No numbers to calculate average.")
-		return
+		return 0
 	}
 
 	sum := 0
@@ -57,12 +61,19 @@ func Average(nms []int){
 
 	average := float64(sum) / float64(len(nms))
 
-	fmt.Printf("Average: %.2f\n", average)
+
+	return average
 }
 
 
 
 func Median(nms []int) float64{
+
+	if len(nms) == 0 {
+		fmt.Println("No numbers to calculate average.")
+		return 0
+	}
+
 	md := len(nms)/2
 
 	if md % 2 == 0 {
@@ -79,15 +90,18 @@ func Median(nms []int) float64{
 }
 
 
-func Variance(nms []int) {
+func Variance(nms []int)  float64 {
+
+	if len(nms) == 0 {
+		fmt.Println("No numbers to calculate average.")
+		return 0
+	}
+	
 	md := Median(nms)
 
-	lo := float64(nms[0])
-	a := float64(nms[len(nms)-1])
+	a , b , c := md - float64(nms[len(nms)-1]) , md - md , md - float64(nms[0]) 
+	e,f,g := a*a, b*b, c*c
 
-	bn := md - lo
-	bnn := md - a
-
-
-	kk := (bn  + )
+	ve := ( e + f + g ) / float64(len(nms))
+	return ve
 }
