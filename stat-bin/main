@@ -28,7 +28,7 @@ func main() {
 			fmt.Println("Invalid number in file, skipping:", sc.Text())
 			continue 
 		}
-		nms = append(nms, nm) 
+		nms = append(nms, float64(nm)) 
 	}
 
 	if err := sc.Err(); err != nil {
@@ -48,7 +48,7 @@ func main() {
 
 
 
-func Average(nms []int) float64 {
+func Average(nms []float64) float64 {
 	if len(nms) == 0 {
 		fmt.Println("No numbers to calculate average.")
 		return 0
@@ -59,7 +59,7 @@ func Average(nms []int) float64 {
 		sum += num
 	}
 
-	average := float64(sum) / float64(len(nms))
+	average := sum / float64(len(nms))
 
 
 	return average
@@ -99,7 +99,8 @@ func Variance(nms []int)  float64 {
 	
 	md := Median(nms)
 
-	a , b , c := md - float64(nms[len(nms)-1]) , md - md , md - float64(nms[0]) 
+	a , b , c := md - float64(nms[len(nms)-1]) , md - md , md - float64(nms[0])
+	
 	e,f,g := a*a, b*b, c*c
 
 	ve := ( e + f + g ) / float64(len(nms))
