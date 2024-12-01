@@ -24,8 +24,10 @@ func main() {
 	MessageOfInvalidInput := info.SearchNumberOfAntsAndRoomsAndTunnels(lines)
 	if MessageOfInvalidInput != "" {
 		fmt.Println(MessageOfInvalidInput)
+		return
 	}
-    fmt.Println(info.NumberOfAnts)
-	fmt.Println(info.Start)
-	fmt.Println(info.End)
+	// fmt.Println(info.NumberOfAnts)
+	// fmt.Println(info.Start)
+	// fmt.Println(info.End)
+	// fmt.Println(info.Rooms)
 }
