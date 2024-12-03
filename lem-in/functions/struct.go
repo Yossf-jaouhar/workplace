@@ -7,4 +7,5 @@ type Info struct {
 	End string
 	Rooms map[string][]string
 	Tunnels map[string][]string
+	AllPaths [][]string
 } 	

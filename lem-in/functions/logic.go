@@ -2,38 +2,48 @@ package functions
 
 import "fmt"
 
-var path []string
-
 func (a *Info) Logic() {
+	var path []string
 
-	viseted := make(map[string]bool)
-	
-	for r := range a.Tunnels {
-		if r == a.Start {
-			dfs(a.Tunnels, r, viseted, path )
+	vesited := make(map[string]bool)
+
+	t := false
+	for !t {
+		res , b := Dsf(a.Tunnels , path, vesited, a.Start , a.End)
+		if b {
+			a.AllPaths = append(a.AllPaths, res)
+			t = false
+		} else {
+			t = true
 		}
 	}
-
-	fmt.Println(path)
+	
+	
 }
 
-func dfs(mapp map[string][]string, start string , v map[string]bool , path []string ) {
+func Dsf(graph map[string][]string , path []string, v map[string]bool, start string , end string) ([]string , bool){
 
-	
-
-	if v[start] {
-		return
-	}
+	var all []string
 
 	v[start] = true
 
-	for char, tt := range mapp {
-		for _, dd := range tt {
+	path = append(path, start)
 
-			if char == start {
-				dfs(mapp, dd, v, path)
-			}
+	all = path
+
+	if start == end {
+		fullPath := append([]string{}, path...)
+        fmt.Println("Path Found:", fullPath)
+
+		return fullPath , true
+ 	}
+
+	for _, char := range graph[start] {
+		if !v[char] {
+			res , b := Dsf(graph , path , v , char , end)
+			return res , b
 		}
-		path = append(path, char)
 	}
+	path = path[:len(path)-1]
+	return all , false
 }

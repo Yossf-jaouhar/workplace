@@ -34,4 +34,5 @@ func main() {
 	// fmt.Println(info.End)
 	// fmt.Println(info.Rooms)
 	// fmt.Println(info.Tunnels)
+	fmt.Println(info.AllPaths)
 }
