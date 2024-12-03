@@ -6,67 +6,41 @@ import (
 
 func (a *Info) SearchOfRooms(lines []string, Index int) string {
 	lines = lines[Index+1:]
-	status := false
+	StatusStart := false
+	StatusEnd := false
 	for i := 0; i < len(lines); i++ {
 		lines[i] = strings.TrimSpace(lines[i])
-		if lines[i] == "##start" {
-			status = false
-			if i < len(lines)-1 {
-				for !status {
-					
-					Start := i + 1
-					if Start == len(lines) -2 {
-						return "There is no Start room"
-					}
-					if a.Validation(lines[Start]) {
-						StartRoom := Select_Start_End(lines[Start])
-						a.Start = StartRoom
-						status = true
+		if a.Validation(lines[i]) {
+			if i > 0 {
+				g := i	
+				for g >= 0{
+					if !StatusStart && lines[g] == "##start" {
+						res := strings.Fields(lines[i])
+						a.Start = res[0]
+						StatusStart = true
 						break
-					} else {
-						Start++
 					}
+					if !StatusEnd && lines[g] == "##end" {
+						res := strings.Fields(lines[i])
+						a.End = res[0]
+						StatusEnd = true
+						break	
+					}
+					g--
 				}
-			} else {
-				return "There is no Start room"
-			}
-		} else if lines[i] == "##end" {
-			status = false
-			if i < len(lines)-1 {
-				for !status {
-					End := i + 1
-					if End == len(lines) -2 {
-						return "There is no end room"
-					}
-					if a.Validation(lines[End]) {
-						EndRoom := Select_Start_End(lines[End])
-
-						a.End = EndRoom
-						status = true
-						break
-					} else {
-						End++
-					}
-				}
-			}  else {
-				return "There is no  End room"
+				
 			}
 		}
 	}
-
+	if !StatusStart {
+		return "no start room"
+	}
+	if !StatusEnd {
+		return "no end room"
+	}
 	return ""
 }
 
-func Select_Start_End(Room string) string {
-	if len(Room) == 0 {
-		return ""
-	}
-	RoomStartOrEnd := strings.Fields(Room)
-	if len(RoomStartOrEnd) > 3 || len(RoomStartOrEnd) < 3 {
-		return ""
-	}
-	return RoomStartOrEnd[0]
-}
 
 func (a *Info) Validation(line string) bool {
 	if len(line) == 0 {
@@ -94,6 +68,17 @@ func (a *Info) Validation(line string) bool {
 	a.Rooms[Everyting[0]] = append(a.Rooms[Everyting[0]], Everyting[2])
 
 	return true
+}
+
+func Select_Start_End(Room string) string {
+	if len(Room) == 0 {
+		return ""
+	}
+	RoomStartOrEnd := strings.Fields(Room)
+	if len(RoomStartOrEnd) > 3 || len(RoomStartOrEnd) < 3 {
+		return ""
+	}
+	return RoomStartOrEnd[0]
 }
 
 func Check(str string) string {

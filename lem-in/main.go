@@ -26,8 +26,12 @@ func main() {
 		fmt.Println(MessageOfInvalidInput)
 		return
 	}
+
+	info.Logic()
+
 	// fmt.Println(info.NumberOfAnts)
 	// fmt.Println(info.Start)
 	// fmt.Println(info.End)
 	// fmt.Println(info.Rooms)
+	// fmt.Println(info.Tunnels)
 }
