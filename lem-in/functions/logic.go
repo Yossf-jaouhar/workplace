@@ -7,15 +7,9 @@ func (a *Info) Logic() {
 
 	vesited := make(map[string]bool)
 
-	t := false
-	for !t {
-		res , b := Dsf(a.Tunnels , path, vesited, a.Start , a.End)
-		if b {
-			a.AllPaths = append(a.AllPaths, res)
-			t = false
-		} else {
-			t = true
-		}
+	res , b := Dsf(a.Tunnels , path, vesited, a.Start , a.End)
+	if !b {
+		a.AllPaths = append(a.AllPaths, res)
 	}
 	
 	

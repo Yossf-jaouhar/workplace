@@ -8,6 +8,8 @@ func (a *Info) SearchOfRooms(lines []string, Index int) string {
 	lines = lines[Index+1:]
 	StatusStart := false
 	StatusEnd := false
+	s := 0
+	e := 0
 	for i := 0; i < len(lines); i++ {
 		lines[i] = strings.TrimSpace(lines[i])
 		if a.Validation(lines[i]) {
@@ -19,12 +21,16 @@ func (a *Info) SearchOfRooms(lines []string, Index int) string {
 						a.Start = res[0]
 						StatusStart = true
 						break
+					} else if StatusStart && lines[g] == "##start" && a.Start != "" {
+						s++
 					}
 					if !StatusEnd && lines[g] == "##end" {
 						res := strings.Fields(lines[i])
 						a.End = res[0]
 						StatusEnd = true
 						break	
+					} else if StatusEnd && lines[g] == "##end" && a.End != "" {
+						e++
 					}
 					g--
 				}
@@ -37,6 +43,9 @@ func (a *Info) SearchOfRooms(lines []string, Index int) string {
 	}
 	if !StatusEnd {
 		return "no end room"
+	}
+	if s > 0 || e > 0 {
+		return "invalid form"
 	}
 	return ""
 }
