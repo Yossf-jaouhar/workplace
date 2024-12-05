@@ -1,43 +1,27 @@
 package functions
 
-import "fmt"
-
 func (a *Info) Logic() {
+	visited := make(map[string]bool)
+	var allPaths [][]string
 	var path []string
+	Dsf(a.Tunnels, &path, visited, a.Start, a.End, &allPaths)
 
-	vesited := make(map[string]bool)
-
-	res , b := Dsf(a.Tunnels , path, vesited, a.Start , a.End)
-	if !b {
-		a.AllPaths = append(a.AllPaths, res)
-	}
-	
-	
+	a.AllPaths = allPaths
 }
 
-func Dsf(graph map[string][]string , path []string, v map[string]bool, start string , end string) ([]string , bool){
-
-	var all []string
-
-	v[start] = true
-
-	path = append(path, start)
-
-	all = path
+func Dsf(graph map[string][]string, path *[]string, visited map[string]bool, start, end string, allPaths *[][]string) {
+	*path = append(*path, start)
+	visited[start] = true
 
 	if start == end {
-		fullPath := append([]string{}, path...)
-        fmt.Println("Path Found:", fullPath)
-
-		return fullPath , true
- 	}
-
-	for _, char := range graph[start] {
-		if !v[char] {
-			res , b := Dsf(graph , path , v , char , end)
-			return res , b
+		*allPaths = append(*allPaths, append([]string{}, *path...))
+	} else {
+		for _, neighbor := range graph[start] {
+			if !visited[neighbor] {
+				Dsf(graph, path, visited, neighbor, end, allPaths)
+			}
 		}
 	}
-	path = path[:len(path)-1]
-	return all , false
+	*path = (*path)[:len(*path)-1]
+	visited[start] = false
 }
