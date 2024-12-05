@@ -22,7 +22,11 @@ func main() {
 	var lines []string
 	for sc.Scan() {
 		l := sc.Text()
+		if len(l) == 0 {
+			continue
+		}
 		line := strings.TrimSpace(l)
+
 		lines = append(lines, line)
 	}
 	info := functions.Info{}

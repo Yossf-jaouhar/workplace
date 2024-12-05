@@ -10,6 +10,7 @@ func (a *Info) SearchOfRooms(lines []string) string {
 	StatusEnd := false
 	
 	for i := 0; i < len(lines); i++ {
+
 		lines[i] = strings.TrimSpace(lines[i])
 		if a.Validation(lines[i]) {
 			if i > 0 {
@@ -33,6 +34,9 @@ func (a *Info) SearchOfRooms(lines []string) string {
 			}
 		}
 	}
+	if !Vld(lines) {
+		return "invali form of the file"
+	}
 	if !StatusStart {
 		return "no start room"
 	}
@@ -43,6 +47,21 @@ func (a *Info) SearchOfRooms(lines []string) string {
 	return ""
 }
 
+
+func Vld(lines []string) bool {
+	s, e := 0, 0
+	for _, char := range lines {
+		if char == "##start" {
+			s++
+		} else if char == "##end" {
+			e++
+		}
+	}
+	if e == 1 && s == 1 {
+		return true
+	}
+	return false
+}
 
 func (a *Info) Validation(line string) bool {
 	if len(line) == 0 {
@@ -72,16 +91,6 @@ func (a *Info) Validation(line string) bool {
 	return true
 }
 
-func Select_Start_End(Room string) string {
-	if len(Room) == 0 {
-		return ""
-	}
-	RoomStartOrEnd := strings.Fields(Room)
-	if len(RoomStartOrEnd) > 3 || len(RoomStartOrEnd) < 3 {
-		return ""
-	}
-	return RoomStartOrEnd[0]
-}
 
 func Check(str string) string {
 	if str[0] == '#' || str[0] == 'L' {
