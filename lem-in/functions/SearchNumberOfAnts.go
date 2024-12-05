@@ -2,36 +2,17 @@ package functions
 
 import (
 	"strconv"
-	"strings"
 )
 
-func (a *Info) SearchNumberOfAnts(lines []string) (string , int){
-	status := false
-	for i:=0; i < len(lines); i++ {
-		status = NumberOfAnts(lines[i])
-		if status {
-			a.NumberOfAnts = strings.TrimSpace(lines[i])
-			return "" , i
-		} else {
-			continue
-		}
+func (a *Info) SearchNumberOfAnts(lines []string) string {
+	v, err := strconv.Atoi(lines[0])
+	if err != nil {
+		return "invalid number of ants"
 	}
-	v, _ := strconv.Atoi(a.NumberOfAnts)
-	if v <= 0 {
-		return "Invalid number of ants" , 0
-	}
-	return "Invalid number of ants" , 0
-}
 
-func NumberOfAnts(line string) bool {
-	if len(line) == 0 {
-		return false
+	if v <= 0 {
+		return "Invalid number of ants"
 	}
-	
-	for _, char := range line {
-		if char < '0' || char > '9' {
-			return false
-		}
-	}
-	return true
+	a.NumberOfAnts = v
+	return ""
 }

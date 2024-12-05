@@ -4,8 +4,9 @@ import (
 	"strings"
 )
 
-func (a *Info) SearchOfTunnels(lines []string, index int) string {
-	for i := index + 1; i < len(lines); i++ {
+func (a *Info) SearchOfTunnels(lines []string) string {
+	lines = lines[1:]
+	for i := 0; i < len(lines); i++ {
 		if checkTunnels(lines[i]) {
 			Tunnels := strings.Split(lines[i], "-")
 			if len(Tunnels) == 2 {
@@ -41,6 +42,7 @@ func (a *Info) FillTheGraph(room1, room2 string) {
 	}
 
 	a.Tunnels[room1] = append(a.Tunnels[room1], room2)
+	a.Tunnels[room2] = append(a.Tunnels[room2], room1)
 }
 
 func (a *Info) ValidRoom(room1, room2 string) bool {

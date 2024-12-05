@@ -1,6 +1,6 @@
 package functions
 
-func (a *Info) Logic() {
+func (a *Info) AllPath() {
 	visited := make(map[string]bool)
 	var allPaths [][]string
 	var path []string

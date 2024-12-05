@@ -4,8 +4,8 @@ import (
 	"strings"
 )
 
-func (a *Info) SearchOfRooms(lines []string, Index int) string {
-	lines = lines[Index+1:]
+func (a *Info) SearchOfRooms(lines []string) string {
+	lines = lines[1:]
 	StatusStart := false
 	StatusEnd := false
 	

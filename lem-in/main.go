@@ -4,12 +4,16 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 
 	"lemin/functions"
 )
 
 func main() {
-	file, err := os.Open("text.txt")
+	if len(os.Args) != 2 {
+		return
+	}
+	file, err := os.Open(os.Args[1])
 	if err != nil {
 		return
 	}
@@ -17,7 +21,8 @@ func main() {
 	sc := bufio.NewScanner(file)
 	var lines []string
 	for sc.Scan() {
-		line := sc.Text()
+		l := sc.Text()
+		line := strings.TrimSpace(l)
 		lines = append(lines, line)
 	}
 	info := functions.Info{}
@@ -27,14 +32,16 @@ func main() {
 		return
 	}
 
-	info.Logic()
+	info.AllPath()
+	info.LogicAnts()
 
-	fmt.Println(info.NumberOfAnts)
-	fmt.Println(info.Start)
-	fmt.Println(info.End)
-	fmt.Println(info.Rooms)
-	fmt.Println(info.Tunnels)
-	fmt.Println(info.AllPaths)
+    fmt.Println(info.NumberOfAnts)
+    fmt.Println(info.Start)
+    fmt.Println(info.End)
+    fmt.Println(info.Rooms)
+    fmt.Println(info.Tunnels)
+    fmt.Println(info.AllPaths)
+
 
 	
 }
