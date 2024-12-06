@@ -37,15 +37,16 @@ func main() {
 	}
 
 	info.AllPath()
-	info.LogicAnts()
+
+
+	
+
+	
 
     //fmt.Println(info.NumberOfAnts)
     //fmt.Println(info.Start)
     //fmt.Println(info.End)
     //fmt.Println(info.Rooms)
-    //fmt.Println(info.Tunnels)
-    //fmt.Println(info.AllPaths)
-
-
-	
+    fmt.Println(info.Tunnels)
+    fmt.Println(info.AllPaths)
 }
