@@ -3,12 +3,13 @@ package functions
 import "fmt"
 
 func (a *Info) AllPath() {
-	//visited := make(map[string]bool)
-	//var allPaths [][]string
-	//var path []string
-	//Dsf(a.Tunnels, &path, visited, a.Start, a.End, &allPaths)
-	allPaths := Bfs(a.Tunnels, a.Start , a.End)
+	visited := make(map[string]bool)
+	var allPaths [][]string
+	var path []string
+	Dsf(a.Tunnels, &path, visited, a.Start, a.End, &allPaths)
+	allPath := Bfs(a.Tunnels, a.Start , a.End)
 	a.AllPaths = allPaths
+	a.AllPaths = append(a.AllPaths, allPath...)
 }
 
 
