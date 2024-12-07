@@ -22,7 +22,7 @@ func main() {
 	var lines []string
 	for sc.Scan() {
 		l := sc.Text()
-		if len(l) == 0 {
+		if l == "" {
 			continue
 		}
 		line := strings.TrimSpace(l)
@@ -31,22 +31,19 @@ func main() {
 	}
 	info := functions.Info{}
 	MessageOfInvalidInput := info.SearchNumberOfAntsAndRoomsAndTunnels(lines)
-	if MessageOfInvalidInput != "" {
+	if MessageOfInvalidInput != nil {
 		fmt.Println(MessageOfInvalidInput)
 		return
 	}
 
-	info.AllPath()
+	info.Bfs()
 
-
-	
-
-	
-
-    //fmt.Println(info.NumberOfAnts)
-    //fmt.Println(info.Start)
-    //fmt.Println(info.End)
-    //fmt.Println(info.Rooms)
-    fmt.Println(info.Tunnels)
-    fmt.Println(info.AllPaths)
+	//fmt.Println(info.NumberOfAnts)
+	//fmt.Println(info.Start)
+	//fmt.Println(info.End)
+	//fmt.Println(info.Rooms)
+	//fmt.Println(info.Tunnels)
+	for _, p := range info.AllPaths {
+		fmt.Println(p)
+	}
 }

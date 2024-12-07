@@ -1,10 +1,11 @@
 package functions
 
 import (
+	"errors"
 	"strings"
 )
 
-func (a *Info) SearchOfRooms(lines []string) string {
+func (a *Info) SearchOfRooms(lines []string) error {
 	lines = lines[1:]
 	StatusStart := false
 	StatusEnd := false
@@ -35,16 +36,16 @@ func (a *Info) SearchOfRooms(lines []string) string {
 		}
 	}
 	if !Vld(lines) {
-		return "invali form of the file"
+		return errors.New("invali form of the file")
 	}
 	if !StatusStart {
-		return "no start room"
+		return errors.New("no start room")
 	}
 	if !StatusEnd {
-		return "no end room"
+		return errors.New("no end room")
 	}
 	
-	return ""
+	return nil
 }
 
 

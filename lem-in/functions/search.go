@@ -1,25 +1,35 @@
 package functions
 
-func (a * Info) SearchNumberOfAntsAndRoomsAndTunnels(lines []string) string {
-	var MessageOfInvalidInput string
+import (
+	"errors"
+	"strconv"
+)
 
-	MessageOfInvalidInput = a.SearchNumberOfAnts(lines)
+func (a * Info) SearchNumberOfAntsAndRoomsAndTunnels(lines []string) error {
+	var MessageOfInvalidInput error
 
-	if MessageOfInvalidInput != "" {
-		return MessageOfInvalidInput
+	var err error
+
+	a.NumberOfAnts , err = strconv.Atoi(lines[0])
+
+	if err != nil {
+		return errors.New("invalid nm ants")
+	}
+	if a.NumberOfAnts <= 0 {
+		return errors.New("invalid nm ants")
 	}
 
 	MessageOfInvalidInput = a.SearchOfRooms(lines)
 
-	if MessageOfInvalidInput != "" {
+	if MessageOfInvalidInput != nil {
 		return MessageOfInvalidInput
 	}
 
 	MessageOfInvalidInput = a.SearchOfTunnels(lines)
-	if MessageOfInvalidInput != "" {
+	if MessageOfInvalidInput != nil {
 		return MessageOfInvalidInput
 	}
 
 	
-	return ""
+	return nil
 }

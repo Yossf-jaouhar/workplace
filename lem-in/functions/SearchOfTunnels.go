@@ -1,10 +1,11 @@
 package functions
 
 import (
+	"errors"
 	"strings"
 )
 
-func (a *Info) SearchOfTunnels(lines []string) string {
+func (a *Info) SearchOfTunnels(lines []string) error {
 	lines = lines[1:]
 	for i := 0; i < len(lines); i++ {
 		if checkTunnels(lines[i]) {
@@ -16,7 +17,7 @@ func (a *Info) SearchOfTunnels(lines []string) string {
 					room1 = Tunnels[0]
 					room2 = Tunnels[1]
 				} else {
-					return "Invalid Tunnels"
+					return errors.New("invalid Tunnels")
 				}
 				a.FillTheGraph(room1, room2)
 
@@ -24,7 +25,7 @@ func (a *Info) SearchOfTunnels(lines []string) string {
 		}
 	}
 
-	return ""
+	return nil
 }
 
 func checkTunnels(str string) bool {
