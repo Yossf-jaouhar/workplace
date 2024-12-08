@@ -12,7 +12,7 @@ package functions
 
 func (a *Info) Bfs() {
 	var queue [][]string
-	//var paths [][]string
+	// var paths [][]string
 
 	queue = append(queue, []string{a.Start})
 
@@ -25,11 +25,11 @@ func (a *Info) Bfs() {
 		lastroom := path[len(path)-1]
 
 		if lastroom == a.End {
+
 			a.AllPaths = append(a.AllPaths, path)
 			if len(a.AllPaths) >= a.NumberOfAnts {
-				return
+				a.FindTheBestPaths()
 			}
-
 			continue
 		}
 
@@ -43,10 +43,32 @@ func (a *Info) Bfs() {
 			}
 		}
 	}
+	a.FindTheBestPaths()
 }
 
-//func (a *Info) FindTheBestPaths(path []string) {
-//}
+func (a *Info) FindTheBestPaths() {
+	status := false
+
+	sma := 0
+	bg := 0
+	
+	for j := 0 ; j < len(a.AllPaths); j++ {
+		for i := 1; i < len(a.AllPaths)-1; i++ {
+
+			for k := 0; k < len(a.AllPaths[i]); k++ {
+
+				if i < len(a.AllPaths)-1 && j < len(a.AllPaths)-1 {
+					status = true
+				}
+				if !status {
+					a.UniquePaths = append(a.UniquePaths, p)
+				}
+
+			}
+
+		}
+	}
+}
 
 func isvesited(path []string, room string) bool {
 	for _, char := range path {

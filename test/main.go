@@ -2,88 +2,66 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"os"
 	"time"
 )
 
-func generateLargeLemInFile(fileName string, numRooms, numLinks, numAnts int) error {
-	file, err := os.Create(fileName)
-	if err != nil {
-		return fmt.Errorf("failed to create file: %w", err)
-	}
-	defer file.Close()
-
-	rand.Seed(time.Now().UnixNano())
-
-	_, err = file.WriteString(fmt.Sprintf("%d\n", numAnts))
-	if err != nil {
-		return fmt.Errorf("error writing number of ants: %w", err)
-	}
-
-	_, err = file.WriteString("##start\n")
-	if err != nil {
-		return fmt.Errorf("error writing start room: %w", err)
-	}
-	_, err = file.WriteString("0 0 0\n")
-	if err != nil {
-		return fmt.Errorf("error writing start room coordinates: %w", err)
-	}
-
-	_, err = file.WriteString("##end\n")
-	if err != nil {
-		return fmt.Errorf("error writing end room: %w", err)
-	}
-	endRoomCoordinates := fmt.Sprintf("%d %d %d\n", numRooms-1, rand.Intn(1000), rand.Intn(1000))
-	_, err = file.WriteString(endRoomCoordinates)
-	if err != nil {
-		return fmt.Errorf("error writing end room coordinates: %w", err)
-	}
-
-	for i := 1; i < numRooms-1; i++ {
-		roomCoordinates := fmt.Sprintf("%d %d %d\n", i, rand.Intn(1000), rand.Intn(1000))
-		_, err = file.WriteString(roomCoordinates)
-		if err != nil {
-			return fmt.Errorf("error writing room %d: %w", i, err)
-		}
-	}
-
-	links := make(map[string]struct{})
-	for i := 0; i < numLinks; i++ {
-		var roomA, roomB int
-		for attempts := 0; attempts < 100; attempts++ { 
-			roomA = rand.Intn(numRooms)
-			roomB = rand.Intn(numRooms)
-			if roomA != roomB {
-				link := fmt.Sprintf("%d-%d", roomA, roomB)
-				reverseLink := fmt.Sprintf("%d-%d", roomB, roomA)
-				if _, exists := links[link]; !exists {
-					if _, exists := links[reverseLink]; !exists {
-						links[link] = struct{}{}
-						break
-					}
-				}
-			}
-		}
-		_, err = file.WriteString(fmt.Sprintf("%d-%d\n", roomA, roomB))
-		if err != nil {
-			return fmt.Errorf("error writing link %d-%d: %w", roomA, roomB, err)
-		}
-	}
-
-	return nil
+// Define a structure to represent an ant with its information:
+// - Ant ID (id)
+// - Path it follows (path)
+// - Current position in the path (position)
+type Ant struct {
+	id       int
+	path     []int
+	position int
 }
 
 func main() {
+	// Define the best paths for the ants
+	// Each path is a series of rooms starting from room 0 and ending at room 1
+	paths := [][]int{
+		{0, 4, 2, 1},       // First path
+		{0, 6, 5, 2, 1},    // Second path
+		{0, 6, 7, 2, 1},    // Third path
+	}
 
-	numRooms := 1000000  
-	numLinks := 5000000  
-	numAnts := 10000000  
+	// Number of ants
+	numAnts := 3
 
-	err := generateLargeLemInFile("large_lem_in_file.txt", numRooms, numLinks, numAnts)
-	if err != nil {
-		fmt.Println("Error:", err)
-	} else {
-		fmt.Println("Large Lem-in file generated successfully!")
+	// Create ants and assign them to the paths
+	// Each ant is assigned a path based on its order
+	ants := []Ant{}
+	for i := 1; i <= numAnts; i++ {
+		ants = append(ants, Ant{
+			id:       i,                          // Ant ID
+			path:     paths[(i-1)%len(paths)],   // Assigned path for the ant
+			position: 0,                         // Each ant starts at the first room in its path
+		})
+	}
+
+	// Move the ants step by step
+	step := 1 // Step counter
+	for {
+		fmt.Printf("Step %d:\n", step)
+		allReached := true // Variable to check if all ants have reached the end
+
+		// Move each ant
+		for i := range ants {
+			ant := &ants[i] // Reference to the current ant
+			if ant.position < len(ant.path)-1 { // If the ant hasn't reached the final room
+				allReached = false             // There's still an ant that hasn't reached the end
+				ant.position++                 // Move the ant to the next room
+				fmt.Printf("Ant %d moves to room %d\n", ant.id, ant.path[ant.position])
+			}
+		}
+
+		// Check if all ants have reached the final room, then exit the loop
+		if allReached {
+			fmt.Println("All ants have reached the final room!")
+			break
+		}
+
+		// Wait for a second to visualize the movement
+		time.Sleep(1 * time.Second)
+		step++
 	}
 }
