@@ -9,4 +9,6 @@ type Info struct {
 	Tunnels map[string][]string
 	AllPaths [][]string
 	UniquePaths [][]string
+
+	Neiofstart map[string]bool
 } 	
