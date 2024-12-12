@@ -22,12 +22,12 @@ func main() {
 	
 	
 
-	//info.Bfs()
+	info.Bfs()
 
-	 fmt.Println(info.NumberOfAnts)
-	 fmt.Println(info.Start)
-	 fmt.Println(info.End)
-	// fmt.Println(info.Rooms)
-	// fmt.Println(info.Tunnels)
-	//fmt.Println(info.Neiofstart)
+	fmt.Println(info.NumberOfAnts)
+	fmt.Println(info.Start)
+	fmt.Println(info.End)
+	fmt.Println(info.Rooms)
+	fmt.Println(info.Tunnels)
+	fmt.Println(info.UniquePaths)
 }
