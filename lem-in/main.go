@@ -14,25 +14,20 @@ func main() {
 
 	info := functions.Info{}
 
-	lines, err := info.ReadFile(os.Args[1])
+	err := info.ReadFile(os.Args[1])
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	
 	
-	MessageOfInvalidInput := info.SearchNumberOfAntsAndRoomsAndTunnels(lines)
-	if MessageOfInvalidInput != nil {
-		fmt.Println(MessageOfInvalidInput)
-		return
-	}
 
-	info.Bfs()
+	//info.Bfs()
 
-	// fmt.Println(info.NumberOfAnts)
-	// fmt.Println(info.Start)
-	// fmt.Println(info.End)
+	 fmt.Println(info.NumberOfAnts)
+	 fmt.Println(info.Start)
+	 fmt.Println(info.End)
 	// fmt.Println(info.Rooms)
 	// fmt.Println(info.Tunnels)
-	fmt.Println(info.Neiofstart)
+	//fmt.Println(info.Neiofstart)
 }
