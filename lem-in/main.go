@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
-	"strings"
 
 	"lemin/functions"
 )
@@ -13,23 +11,16 @@ func main() {
 	if len(os.Args) != 2 {
 		return
 	}
-	file, err := os.Open(os.Args[1])
+
+	info := functions.Info{}
+
+	lines, err := info.ReadFile(os.Args[1])
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
-
-	sc := bufio.NewScanner(file)
-	var lines []string
-	for sc.Scan() {
-		l := sc.Text()
-		if l == "" {
-			continue
-		}
-		line := strings.TrimSpace(l)
-
-		lines = append(lines, line)
-	}
-	info := functions.Info{}
+	
+	
 	MessageOfInvalidInput := info.SearchNumberOfAntsAndRoomsAndTunnels(lines)
 	if MessageOfInvalidInput != nil {
 		fmt.Println(MessageOfInvalidInput)

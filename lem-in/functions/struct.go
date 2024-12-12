@@ -7,7 +7,7 @@ type Info struct {
 	End string
 	Rooms map[string][]string
 	Tunnels map[string][]string
-	AllPaths [][]string
+
 	UniquePaths [][]string
 
 	Neiofstart map[string]bool
