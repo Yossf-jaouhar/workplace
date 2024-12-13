@@ -11,4 +11,6 @@ type Info struct {
 	UniquePaths [][]string
 
 	Neiofstart map[string]bool
+	
+	Res []string
 } 	

@@ -21,13 +21,21 @@ func main() {
 	}
 	
 	
-
-	info.Bfs()
+	
+	info.Res = append(info.Res, info.Tunnels[info.Start]...)
+	
+	
+	for _, v := range info.Tunnels[info.Start] {
+		info.Bfs(v)
+	}
 
 	fmt.Println(info.NumberOfAnts)
 	fmt.Println(info.Start)
 	fmt.Println(info.End)
 	fmt.Println(info.Rooms)
 	fmt.Println(info.Tunnels)
-	fmt.Println(info.UniquePaths)
+
+	for _, p := range info.UniquePaths {
+		fmt.Println(p)
+	}
 }
