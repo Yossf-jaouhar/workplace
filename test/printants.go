@@ -76,9 +76,9 @@ func generateLargeLemInFile(fileName string, numRooms, numLinks, numAnts int) er
 
 func main() {
 
-	numRooms := 100 
-	numLinks := 50  
-	numAnts := 10000000  
+	numRooms := 10000
+	numLinks := 50000
+	numAnts := 1000
 
 	err := generateLargeLemInFile("large_lem_in_file.txt", numRooms, numLinks, numAnts)
 	if err != nil {
@@ -89,4 +89,3 @@ func main() {
 }
 
 
-///https://github.com/Dias1c/lem-in
