@@ -10,7 +10,8 @@ type Info struct {
 
 	UniquePaths [][]string
 
-	Neiofstart map[string]bool
 	NumberOfrooms int
  	Res []string
-} 	
+}
+
+

@@ -2,16 +2,17 @@ package functions
 
 import "fmt"
 
-func Variance(nms []int, mean int) int {
+func Variance(nms []float64, mean float64) float64 {
 	if len(nms) == 0 {
-		fmt.Println("No numbers to calculate variance.")
+		fmt.Println("no numbers")
 		return 0
 	}
 
-	sum := 0
+	sum := 0.0
 	for _, num := range nms {
-		sum += (num - mean) * (num - mean)
-	}	
+		diff := num - mean 
+		sum += diff * diff 
+	}
 
-	return sum / len(nms)
+	return sum / float64(len(nms))
 }

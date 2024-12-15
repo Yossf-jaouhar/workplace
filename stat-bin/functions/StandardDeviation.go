@@ -1,18 +1,8 @@
 package functions
 
-import "fmt"
+import "math"
 
-func StandardDeviation(variance int) int {
-	if variance < 0 {
-		fmt.Println("Negative")
-		return -1
-	}
-
-	n := variance / 2
-	
-	for i := 0; i < 10; i++ { 
-		n = 5 * (n + variance/n)
-	}
-
-	return n
+func StandardDeviation(variance float64) float64 {
+	deviation := math.Sqrt(variance)
+	return deviation
 }
