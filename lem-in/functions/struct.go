@@ -9,8 +9,8 @@ type Info struct {
 	Tunnels map[string][]string
 
 	UniquePaths [][]string
-
-	NumberOfrooms int
+	TheBestPaths [][]string
+ 	NumberOfrooms int
  	Res []string
 }
 

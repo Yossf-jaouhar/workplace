@@ -22,18 +22,15 @@ func main() {
 	
 	
 	
-	info.Res = append(info.Res, info.Tunnels[info.Start]...)
+	info.Res = append(info.Res, info.Tunnels[info.End]...)
 	
 	
-	for _, v := range info.Tunnels[info.Start] {
+	for _, v := range info.Tunnels[info.End] {
 		info.Bfs(v)
+		if len(info.UniquePaths) >= 2 {
+			info.FindGroups()
+		}
 	}
-
-	// fmt.Println(info.NumberOfAnts)
-	// fmt.Println(info.Start)
-	// fmt.Println(info.End)
-	// fmt.Println(info.Rooms)
-	// fmt.Println(info.Tunnels)
 
 	for _, p := range info.UniquePaths {
 		fmt.Println(p)

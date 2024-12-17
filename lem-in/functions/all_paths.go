@@ -1,8 +1,7 @@
 package functions
 
 import (
-	"sort"
-	"strings"
+	"fmt"
 )
 
 func (y *Info) Bfs(n string) {
@@ -18,32 +17,16 @@ func (y *Info) Bfs(n string) {
 
 		lastroom := path[len(path)-1]
 
-		if lastroom == y.End {
+		if lastroom == y.Start {
 
 			newpath := append([]string{}, path...)
 
 			y.UniquePaths = append(y.UniquePaths, newpath)
-			// if len(y.Res) == len(y.UniquePaths) {
-			// 	S := y.UniquePaths
-			// 	res := y.FindGroups(S)
-			// 	y.UniquePaths = res
-			// 	break
-			// }
-			
-			if len(y.Res) == len(y.UniquePaths) {
-				for _, p := range y.UniquePaths {
-					y.FindGroups(p)
-				}
-				y.Gh()
-				y.Kk()
-				break
-			}
-
 			break
 		}
 
 		for _, nei := range y.Tunnels[lastroom] {
-			if !isvesited(path, nei) && nei != y.Start && ok(y.Res, nei) {
+			if !isvesited(path, nei) && nei != y.End && ok(y.Res, nei) {
 				newpath := append([]string{}, path...)
 				newpath = append(newpath, nei)
 				queue = append(queue, newpath)
@@ -51,84 +34,64 @@ func (y *Info) Bfs(n string) {
 		}
 	}
 }
-func (y *Info) Kk() {
-	
-}
 
-func (y *Info) Gh() {
-	uniqueMap := make(map[string][]string)
-
-	for _, row := range y.UniquePaths {
-		h := row[1:]
-		h = h[:len(h)-1]
-		sortedRow := append([]string{}, row...)
-		sort.Strings(sortedRow)
-
-		key := strings.Join(sortedRow, ",")
-
-		if existing, exists := uniqueMap[key]; !exists || len(row) < len(existing) {
-			uniqueMap[key] = row
+func (y *Info) FindGroups() {
+	status, ig1, ig2 := FindTheUniquePaths(y.UniquePaths[0], y.UniquePaths[len(y.UniquePaths)-1])
+	if status {
+	} else {
+		if len(y.Tunnels[y.UniquePaths[len(y.UniquePaths)-1][ig1-1]]) > 2 {
+			N := y.UniquePaths[len(y.UniquePaths)-1][ig1-1]
+			b := y.UniquePaths[len(y.UniquePaths)-1][ig1]
+			y.BBfs(N, b)
+		} else if len(y.Tunnels[y.UniquePaths[0][ig2-1]]) > 2 {
+			fmt.Println(y.UniquePaths[0][ig2-1])
+			N := y.UniquePaths[0][ig2-1]
+			b := y.UniquePaths[0][ig2]
+			y.BBfs(N, b)
 		}
 	}
-
-	result := [][]string{}
-	for _, row := range uniqueMap {
-		result = append(result, row)
-	}
-
-	y.UniquePaths = result
 }
 
-func (y *Info) FindGroups(FirstPath []string) {
-	res := y.UniquePaths
+func (y *Info) BBfs(n string, b string) {
+	var queue [][]string
 
-	var ff [][]string
+	queue = append(queue, []string{n})
 
-	ff = append(ff, FirstPath)
+	for len(queue) > 0 {
 
-	for i := 0; i < len(res); i++ {
-		Status := FindTheUniquePaths(FirstPath, res[i])
-		if Status {
-			ff = append(ff, res[i])
-			continue
-		} else if !Status {
-			if len(y.Tunnels[res[i][0]]) > 2 {
+		path := queue[0]
 
-				h := Bfs(y.Tunnels, y.End, y.Start, res[i][0])
-				b := jj(h, res[i])
-				// fmt.Println(b)
-				ff = append(ff, b...)
+		queue = queue[1:]
 
+		lastroom := path[len(path)-1]
+
+		if lastroom == y.Start {
+
+			newpath := append([]string{}, path...)
+
+			y.UniquePaths = append(y.UniquePaths, newpath)
+
+		}
+
+		for _, nei := range y.Tunnels[lastroom] {
+			if !isvesited(path, nei) && nei != y.End && ok(y.Res, nei) && nei != b {
+				newpath := append([]string{}, path...)
+				newpath = append(newpath, nei)
+				queue = append(queue, newpath)
 			}
 		}
 	}
-
-	// y.UniquePaths =append(y.UniquePaths, ff...)
-	y.UniquePaths = ff
 }
 
-func jj(h [][]string, g []string) [][]string {
-	var rr [][]string
-	for _, p := range h {
-		if FindTheUniquePaths(p, g) {
-			rr = append(rr, p)
-			rr = append(rr, p)
-		} else {
-			rr = append(rr, p)
-		}
-	}
-	return rr
-}
-
-func FindTheUniquePaths(p1, p2 []string) bool {
-	for i := 0; i < len(p1)-1; i++ {
-		for j := 0; j < len(p2)-1; j++ {
+func FindTheUniquePaths(p1, p2 []string) (bool, int, int) {
+	for i := 1; i < len(p1)-1; i++ {
+		for j := 1; j < len(p2)-1; j++ {
 			if p1[i] == p2[j] {
-				return false
+				return false, j, i
 			}
 		}
 	}
-	return true
+	return true, 0, 0
 }
 
 func ok(n []string, a string) bool {
@@ -149,33 +112,15 @@ func isvesited(path []string, room string) bool {
 	return false
 }
 
-func Bfs(g map[string][]string, End string, Start string, r string) [][]string {
-	var res [][]string
-	var queue [][]string
-
-	queue = append(queue, []string{r})
-
-	for len(queue) > 0 {
-
-		path := queue[0]
-
-		queue = queue[1:]
-
-		lastroom := path[len(path)-1]
-
-		if lastroom == End {
-
-			newpath := append([]string{}, path...)
-			res = append(res, newpath)
-		}
-
-		for _, nei := range g[lastroom] {
-			if !isvesited(path, nei) && nei != r && nei != Start {
-				newpath := append([]string{}, path...)
-				newpath = append(newpath, nei)
-				queue = append(queue, newpath)
+func FindTheUniqueePaths(p1, p2 []string) bool {
+	for i := 0; i < len(p1)-1; i++ {
+		for j := 0; j < len(p2)-1; j++ {
+			if p1[i] == p2[j] {
+				return false
 			}
 		}
 	}
-	return res
+	return true
 }
+
+
