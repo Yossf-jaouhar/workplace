@@ -22,10 +22,10 @@ func main() {
 	
 	
 	
-	info.Res = append(info.Res, info.Tunnels[info.End]...)
+	info.Res = append(info.Res, info.Tunnels[info.Start]...)
 	
 	
-	for _, v := range info.Tunnels[info.End] {
+	for _, v := range info.Tunnels[info.Start] {
 		info.Bfs(v)
 		if len(info.UniquePaths) >= 2 {
 			info.FindGroups()

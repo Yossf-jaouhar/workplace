@@ -17,7 +17,7 @@ func (y *Info) Bfs(n string) {
 
 		lastroom := path[len(path)-1]
 
-		if lastroom == y.Start {
+		if lastroom == y.End {
 
 			newpath := append([]string{}, path...)
 
@@ -26,7 +26,7 @@ func (y *Info) Bfs(n string) {
 		}
 
 		for _, nei := range y.Tunnels[lastroom] {
-			if !isvesited(path, nei) && nei != y.End && ok(y.Res, nei) {
+			if !isvesited(path, nei) && nei != y.Start && ok(y.Res, nei) {
 				newpath := append([]string{}, path...)
 				newpath = append(newpath, nei)
 				queue = append(queue, newpath)
@@ -65,7 +65,7 @@ func (y *Info) BBfs(n string, b string) {
 
 		lastroom := path[len(path)-1]
 
-		if lastroom == y.Start {
+		if lastroom == y.End {
 
 			newpath := append([]string{}, path...)
 
@@ -74,7 +74,7 @@ func (y *Info) BBfs(n string, b string) {
 		}
 
 		for _, nei := range y.Tunnels[lastroom] {
-			if !isvesited(path, nei) && nei != y.End && ok(y.Res, nei) && nei != b {
+			if !isvesited(path, nei) && nei != y.Start && ok(y.Res, nei) && nei != b {
 				newpath := append([]string{}, path...)
 				newpath = append(newpath, nei)
 				queue = append(queue, newpath)
