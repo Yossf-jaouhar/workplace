@@ -76,8 +76,8 @@ func generateLargeLemInFile(fileName string, numRooms, numLinks, numAnts int) er
 
 func main() {
 
-	numRooms := 10000
-	numLinks := 50000
+	numRooms := 100000
+	numLinks := 500000
 	numAnts := 1000
 
 	err := generateLargeLemInFile("large_lem_in_file.txt", numRooms, numLinks, numAnts)
