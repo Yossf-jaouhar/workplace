@@ -51,47 +51,41 @@ func (y *Info) Print(res [][]string) {
 
 	y.print2(steps)
 
-
 	y.print3()
 }
 
-
-func (y * Info) print3() {
-
+func (y *Info) print3() {
 	var result []string
 
-	var s  string
-
-	
+	var s string
 
 	for _, v := range y.Forprint {
-
 		if s == "" {
 			s += v
 			continue
-		} 
+		}
 
 		g := fff(v)
 
-		if !strings.Contains(s , g) {
+		if !strings.Contains(s, g) {
 			s += v
-			
 		} else {
 			result = append(result, s)
 			s = v
 		}
 
-
-	}
-	var ff []string
-
-	for _, v := range result {
-		for _, b := range v {
-			
-		}	
 	}
 
+	s = ""
 
+	for i := 0; i < len(result); i++ {
+
+		if s == "" {
+			s += result[i]
+		}
+		fmt.Println(result[i])
+	}
+	//fmt.Println(s)
 }
 
 func fff(s string) string {
@@ -126,7 +120,6 @@ func (y *Info) print2(res [][]string) {
 		h := append([]string{}, g)
 
 		h = append(h, res[i]...)
-
 
 		res[i] = h
 	}
