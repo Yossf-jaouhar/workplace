@@ -17,5 +17,8 @@ type Info struct {
 	UniqueGroups [][][]string
 	SG int
 	GG int
+
+
+	Forprint []string
 }
 
