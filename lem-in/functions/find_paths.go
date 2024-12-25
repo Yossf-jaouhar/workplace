@@ -1,9 +1,5 @@
 package functions
 
-import (
-	"fmt"
-)
-
 func (y *Info) Bfs(n string) {
 	var queue [][]string
 
@@ -18,10 +14,9 @@ func (y *Info) Bfs(n string) {
 		lastroom := path[len(path)-1]
 
 		if lastroom == y.End {
-
 			newpath := append([]string{}, path...)
-
 			y.UniquePaths = append(y.UniquePaths, newpath)
+
 			break
 		}
 
@@ -35,20 +30,11 @@ func (y *Info) Bfs(n string) {
 	}
 }
 
-func (y *Info) FindGroups() {
-	status, ig1, ig2 := FindTheUniquePaths(y.UniquePaths[0], y.UniquePaths[len(y.UniquePaths)-1])
-	if status {
-	} else {
-		if len(y.Tunnels[y.UniquePaths[len(y.UniquePaths)-1][ig1-1]]) > 2 {
-			N := y.UniquePaths[len(y.UniquePaths)-1][ig1-1]
-			b := y.UniquePaths[len(y.UniquePaths)-1][ig1]
-			y.BBfs(N, b)
-		} else if len(y.Tunnels[y.UniquePaths[0][ig2-1]]) > 2 {
-			fmt.Println(y.UniquePaths[0][ig2-1])
-			N := y.UniquePaths[0][ig2-1]
-			b := y.UniquePaths[0][ig2]
-			y.BBfs(N, b)
-		}
+func (y *Info) FindMorePaths(p []string) {
+	if len(p) > 3 {
+		n := p[0]
+		b := p[1]
+		y.BBfs(n, b)
 	}
 }
 
@@ -65,16 +51,21 @@ func (y *Info) BBfs(n string, b string) {
 
 		lastroom := path[len(path)-1]
 
+		if len(y.Tunnels[lastroom]) > 3 {
+			y.Bfs(lastroom)
+			continue
+		}
+
 		if lastroom == y.End {
 
 			newpath := append([]string{}, path...)
-
 			y.UniquePaths = append(y.UniquePaths, newpath)
 
 		}
 
 		for _, nei := range y.Tunnels[lastroom] {
 			if !isvesited(path, nei) && nei != y.Start && ok(y.Res, nei) && nei != b {
+				
 				newpath := append([]string{}, path...)
 				newpath = append(newpath, nei)
 				queue = append(queue, newpath)
@@ -83,18 +74,10 @@ func (y *Info) BBfs(n string, b string) {
 	}
 }
 
-func FindTheUniquePaths(p1, p2 []string) (bool, int, int) {
-	for i := 1; i < len(p1)-1; i++ {
-		for j := 1; j < len(p2)-1; j++ {
-			if p1[i] == p2[j] {
-				return false, j, i
-			}
-		}
-	}
-	return true, 0, 0
-}
-
 func ok(n []string, a string) bool {
+	if len(n) == 0 {
+		return true
+	}
 	for _, char := range n {
 		if char == a {
 			return false
@@ -111,16 +94,3 @@ func isvesited(path []string, room string) bool {
 	}
 	return false
 }
-
-func FindTheUniqueePaths(p1, p2 []string) bool {
-	for i := 0; i < len(p1)-1; i++ {
-		for j := 0; j < len(p2)-1; j++ {
-			if p1[i] == p2[j] {
-				return false
-			}
-		}
-	}
-	return true
-}
-
-
