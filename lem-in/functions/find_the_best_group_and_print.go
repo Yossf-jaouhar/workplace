@@ -1,5 +1,7 @@
 package functions
 
+import "fmt"
+
 func (y *Info) FindTheBestGroup() {
 	var res []int
 
@@ -28,7 +30,9 @@ func (y *Info) FindTheBestGroup() {
 		}
 		res = append(res, b)
 	}
-
+	for _, v := range y.UniqueGroups {
+		fmt.Println(v)
+	}
 	for i, v := range y.UniqueGroups {
 		status := y.IsGoodGroup(v)
 		if status {
@@ -36,10 +40,14 @@ func (y *Info) FindTheBestGroup() {
 			break
 		}
 		if i == len(y.UniqueGroups)-1 && !status {
-			y.Print(y.AllGroups[y.SG])
+			y.Print(y.AllGroups[y.GG])
 			break
 		}
 
+		if y.NumberOfAnts == 1 {
+			y.Print(y.AllGroups[y.SG])
+			break
+		}
 	}
 }
 
