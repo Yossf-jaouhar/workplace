@@ -1,14 +1,12 @@
 package functions
 
-import "fmt"
-
 func (y *Info) FindTheBestGroup() {
 	var res []int
 
 	SmallGroup := 0
 	LongGroup := 0
 
-	for i, v := range y.AllGroups {
+	for i, v := range y.UniqueGroups {
 		b := hi(v)
 
 		if uq(res, b) {
@@ -26,13 +24,12 @@ func (y *Info) FindTheBestGroup() {
 				y.GG = i
 			}
 			y.UniqueGroups = append(y.UniqueGroups, v)
-			y.NumberOfGroups++
+
 		}
+
 		res = append(res, b)
 	}
-	for _, v := range y.UniqueGroups {
-		fmt.Println(v)
-	}
+
 	for i, v := range y.UniqueGroups {
 		status := y.IsGoodGroup(v)
 		if status {
@@ -40,14 +37,10 @@ func (y *Info) FindTheBestGroup() {
 			break
 		}
 		if i == len(y.UniqueGroups)-1 && !status {
-			y.Print(y.AllGroups[y.GG])
+			y.Print(y.UniqueGroups[y.SG])
 			break
 		}
 
-		if y.NumberOfAnts == 1 {
-			y.Print(y.AllGroups[y.SG])
-			break
-		}
 	}
 }
 

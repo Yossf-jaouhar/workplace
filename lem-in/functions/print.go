@@ -6,11 +6,8 @@ import (
 )
 
 func (y *Info) Print(res [][]string) {
-	result := Sort(res)
-	nm := conv(y.NumberOfAnts)
-
-	fmt.Println(result)
-	fmt.Println(nm)
+	res = Sort(res)
+	fmt.Println(res)
 }
 
 func conv(nm int) []string {
@@ -28,9 +25,8 @@ func Sort(res [][]string) [][]string {
 	if len(res) == 1 {
 		return res
 	}
-
 	for i := 0; i < len(res); i++ {
-		if i != len(res)-1 && len(res[i]) >= len(res[i+1]) {
+		if i != len(res)-1 && len(res[i]) > len(res[i+1]) {
 			res[i], res[i+1] = res[i+1], res[i]
 		} else {
 			continue

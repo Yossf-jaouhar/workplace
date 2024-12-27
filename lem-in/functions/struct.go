@@ -8,17 +8,21 @@ type Info struct {
 	Rooms   map[string][]string
 	Tunnels map[string][]string
 
-	UniquePaths [][]string
+	Paths [][]string
 
 	Res []string
-	StartWithEnd bool
-	NumberOfGroups int
+
+
+	
 	AllGroups    [][][]string
+
 	UniqueGroups [][][]string
+
+
+	TheBestGroup [][]string
+
+
 	SG int
 	GG int
-
-
-	Forprint []string
 }
 
