@@ -1,0 +1,308 @@
+    :root {
+        --background: #2c2f33;
+        --btn1: #8E1616;
+        --btn2: #D84040;
+        --text: #EEEEEE;
+        --bg: #e6e6e6;
+        --white: #ffffff;
+        --second-text-color: #9c9c9c
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        width: 100%;
+        margin: auto;
+        background-color: var(--bg);    
+        overflow: hidden;
+    }
+
+    .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        transition: .6s;
+    }
+
+    img[src="/frontend/static/images/profil.svg"]{
+        width: 35px;
+        padding: 5px;
+        background-color: var(--bg);
+        border-radius: 50%;
+    }
+
+
+    section {
+        display: flex;
+        height: 85%;
+        margin-top: 20px;
+        gap: 60px;
+        overflow: hidden;
+    }
+
+
+    section main {
+        flex: 2.2;
+        height: 100%;
+    }
+
+    section article {
+        flex: 1;
+    }
+
+    section main .create-post {
+        text-align: right;
+        margin-bottom: 20px;
+        
+    }
+
+    section main .cards{
+        height: 100%;
+        overflow: auto;
+        padding-bottom: 70px;
+    }
+
+    section main .cards .card {
+        width: 95%;
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 15px;
+       
+        margin-bottom: 20px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 12px;
+    }
+
+    section main .cards .card .header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: solid 1px var(--bg);
+        padding-bottom: 8px;
+    }
+
+    section main .cards .card .header-card h4 {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        font-weight: 500;
+    }
+
+
+    section main .cards .card .header-card .datetime {
+        color: var(--second-text-color);
+        font-weight: 300;
+        font-size: 0.8em;
+    }
+
+    section main .cards .card .title{
+        margin-top: 8px;
+        font-weight: 600;
+    }
+
+    section main .cards .card .content{
+        margin: 10px 0;
+        line-height: 23px;
+    }
+
+    section main .cards .card .footer-card{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    section main .cards .card .footer-card .category p{
+        color: var(--btn2);
+    }
+
+    section main .cards .card .footer-card .category p span{
+        color: var(--second-text-color);
+    }
+
+    section main .cards .card .footer-card .reacts{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    section main .cards .card .footer-card .reacts form{
+        display: inline;
+    }
+
+    section main .cards .card .footer-card .reacts form button{
+        background: none;
+        border: none;
+        outline: none;
+    }
+
+    section main .cards .card .footer-card .reacts div i {
+        cursor: pointer;
+        transition: .4s;
+    }
+
+    section main .cards .card .footer-card .reacts div i:hover{
+        color: var(--btn2);
+    }
+
+    section article {
+        position: relative;
+    }
+
+    section article .profil{
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0px 10px 30px rgba(0,0,0,.1);
+    }
+
+    section article .profil h4{
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        border-bottom: 1px solid var(--bg);
+        padding-bottom: 8px;
+    }
+
+    section article .profil h4 span{
+        width: 10px;
+        height: 10px;
+        background-color: #00ff11;
+        border-radius: 50%;
+    }
+
+    section article .profil > div {
+        margin: 30px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    section article .profil > div p {
+        font-size: 1.15em;
+        cursor: pointer;
+    }
+
+    section article .profil > div p i[class="fa-solid fa-heart"] {
+        color: var(--btn2);
+    }
+    
+    section article .profil > div p:hover{
+        text-decoration: underline;
+    }
+
+    section article .filter-category{
+        background-color: var(--white);
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        box-shadow: 0px 10px 30px rgba(0,0,0,.1);
+    }
+
+    section article .filter-category > h4{
+        font-size: 1.4em;
+    }
+
+    section article .filter-category .categories form{
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    section article .filter-category .categories label{
+        cursor: pointer;
+    }
+
+    section article .filter-category .categories input:checked + label{
+        color: var(--second-text-color);
+    }
+
+    section article .filter-category button{
+        background-color: var(--btn2);
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        padding: 7px 0;
+        font-size: 1.1em;
+        font-weight: 500;
+        cursor: pointer;
+        transition: .4s;
+    }
+
+    section article .filter-category button:hover{
+        background-color: var(--btn1);
+    }
+
+   
+    ::-webkit-scrollbar {
+        width: 5px;
+        margin-left: 50px;
+    }
+    
+
+    ::-webkit-scrollbar-track {
+        background: var(--text);
+    }
+    
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--btn2);
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    .dislikecolor{
+        color: red;
+    }
+
+ .likecolor{
+        color: var(--btn2);
+    }
+    
+    @media (min-width: 576px) {
+        .container {
+            max-width: 540px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .container {
+            max-width: 720px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .container {
+            max-width: 960px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .container {
+            max-width: 1140px;
+        }
+    }
+
+    @media (min-width: 1400px) {
+        .container {
+            max-width: 1320px;
+        }
+    }
