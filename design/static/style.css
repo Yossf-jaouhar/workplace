@@ -189,14 +189,78 @@ ul li a:hover{
 
 .form input{
     background: transparent;
-    margin: 10px;
-    height: 30px;
-    width: 210px;
+    margin-top: 30px;
+    height: 35px;
+    width: 240px;
     border-bottom: 1px solid var(--color);
     border-top: none;
     border-left: none;
     border-right: none;
     letter-spacing: 1px;
+    font-size: 15px;
     font-family: sans-serif;
 }
 
+.form input:focus{
+    outline: none;
+}
+
+::placeholder{
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.btnn{
+    width: 240px;
+    height: 40px;
+    background: var(--color);
+    border: none;
+    margin-top: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.btnn:hover{
+    background: #fff;
+    color: var(--color);
+}
+
+.btnn a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+
+.form .Link{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.form .Link a {
+    text-transform: none;
+    color: var(--color);
+}
+
+
+.liw{
+    padding-top: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.ICON a {
+    text-decoration: none;
+    color: #fff;
+}
+.ICON  ion-icon{
+    color: #fff;
+    font-size: 30px;
+    padding-left: 14px;
+    padding-top: 5px;
+}
