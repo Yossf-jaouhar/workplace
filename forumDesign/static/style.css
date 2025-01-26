@@ -75,29 +75,54 @@ main{
   
     width: 70%;
     margin: auto;
+    padding: 0%;
 
     flex-wrap: wrap;
 
-
-    background-color: red;
+    justify-content: space-between;
     
    
 }
 
 main article {
     width: 70%;
+    margin: 0%;
+    padding: 0%;
+
 }
 
 
 main article .creat-post {
-    background-color: blue;
+    
     text-align: right;
+    
+    margin-top: 30px;
+
+   
+
+}
+
+
+main article .creat-post button {
+    width: 120px;
+    height: 40px;
+    margin-right: 20px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: var(--white);
+    overflow: hidden;
+    background-color: var(--btn2);
 }
 
 
 
 
-main article .post { 
+main article .post {
+    
+    margin-top: 70px;
+   
     background-color: var(--bg);
    
    
@@ -171,22 +196,22 @@ main article .post {
 
 
 
-main section {
+main aside {
    
-   width: 300px;
+    width: 300px;
     height: 600px;
     flex-wrap: wrap;
 
-    background-color: #2c2f33;
+  
 }
 
 
 
-main section .mypost {
+main aside .mypost {
    
     background-color: var(--bg);
   
-    
+    height: 50%;
     border-radius: 10px;
 
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
@@ -194,11 +219,13 @@ main section .mypost {
 
 
 
-main section .filter {
+main aside .filter {
 
     background-color: var(--bg);
 
     border-radius: 10px;
+
+    height: 50%;
 
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
 }
