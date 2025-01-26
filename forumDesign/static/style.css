@@ -78,29 +78,33 @@ main{
 
     flex-wrap: wrap;
 
+
+    background-color: red;
     
    
 }
 
-main .creat-post {
-    background-color: red;
-    height: 50px;
-    width: 100%;
+main article {
+    width: 70%;
+}
+
+
+main article .creat-post {
+    background-color: blue;
+    text-align: right;
 }
 
 
 
 
-
-main article { 
+main article .post { 
     background-color: var(--bg);
-    width: 70%;
+   
    
     
 
     height: 300px;
-    display: flex;
-    justify-content: space-between;
+   
     border-radius: 8px;
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
     .userbar{
@@ -170,11 +174,10 @@ main article {
 main section {
    
    width: 300px;
-    margin-top: 40px;
     height: 600px;
     flex-wrap: wrap;
 
-
+    background-color: #2c2f33;
 }
 
 
@@ -183,7 +186,7 @@ main section .mypost {
    
     background-color: var(--bg);
   
-    margin-bottom: 20px;
+    
     border-radius: 10px;
 
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
