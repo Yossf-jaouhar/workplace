@@ -112,3 +112,10 @@ main section .filter {
     height: 43%;
     border-radius: 10px;
 }
+
+
+
+main article div ul li img{
+    width: 200px;
+    height: 200px;
+}
