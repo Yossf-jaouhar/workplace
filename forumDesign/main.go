@@ -11,7 +11,7 @@ func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	fmt.Println("//http://localhost:8080")
+	fmt.Println("you server start on : //http:localhost:8080")
 	http.ListenAndServe(":8080", nil)
 }
 
