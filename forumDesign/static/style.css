@@ -11,7 +11,7 @@
 *{  
     padding: 0;
     margin: 0;
-    color: wheat;
+    color: var(--white);
 }
 body{
     background-color: white;
@@ -128,7 +128,7 @@ main article .post {
    
     
 
-    height: 300px;
+   
    
     border-radius: 8px;
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
@@ -197,9 +197,9 @@ main article .post {
 
 
 main aside {
-   
+  
     width: 300px;
-    height: 600px;
+    height: 100vh;
     flex-wrap: wrap;
 
   
@@ -210,8 +210,9 @@ main aside {
 main aside .mypost {
    
     background-color: var(--bg);
-  
-    height: 50%;
+
+    margin-bottom: 20px;
+    height: 30%;
     border-radius: 10px;
 
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
