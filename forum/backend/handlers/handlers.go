@@ -6,10 +6,11 @@ import (
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodGet {
 		HandleError(w, http.StatusMethodNotAllowed)
 		return
 	}
+	
 }
 
 func HandleError(w http.ResponseWriter, code int) {
