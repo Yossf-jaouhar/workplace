@@ -9,4 +9,6 @@ func RegisterRoutes() {
 	
 	http.HandleFunc("/", handlers.HomeHandler)
 
+	http.HandleFunc("/frontend/static/", handlers.StaticHandler)
+
 }

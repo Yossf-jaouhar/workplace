@@ -11,7 +11,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl , err := template.ParseFiles("frontend/templete/indix.html")
+	tmpl , err := template.ParseFiles("frontend/templete/inix.html")
 	if err != nil {
 		HandleError(w , http.StatusInternalServerError)
 		return
