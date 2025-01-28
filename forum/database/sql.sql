@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS comments {
 
 CREATE TABLE if NOT EXISTS category {
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    NAME TEXT
+    NAME TEXT NOT NULL UNIQUE
 }
 
 CREATE TABLE IF NOT EXISTS post_category {
@@ -55,3 +55,11 @@ CREATE TABLE IF NOT EXISTS comment_likes {
      FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES posts(ID) ON DELETE CASCADE
 }
+
+INSERT OR IGNORE INTO category (NAME) VALUE ('Coding');
+INSERT OR IGNORE INTO Category (Name_Category) VALUES ('Innovation');
+INSERT OR IGNORE INTO Category (Name_Category) VALUES ('Betcoin');
+INSERT OR IGNORE INTO Category (Name_Category) VALUES ('kids');
+INSERT OR IGNORE INTO Category (Name_Category) VALUES ('movie');
+INSERT OR IGNORE INTO Category (Name_Category) VALUES ('sport');
+INSERT OR IGNORE INTO Category (Name_Category) VALUES ('food');

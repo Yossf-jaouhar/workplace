@@ -16,7 +16,7 @@ func main() {
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	tmlp, err := template.ParseFiles("indix.html")
+	tmlp, err := template.ParseFiles("templete/indix.html")
 	if err != nil {
 		return
 	}
