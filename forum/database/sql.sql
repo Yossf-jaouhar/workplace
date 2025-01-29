@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
     EMAIL CHAR(50) NOT NULL UNIQUE,
     PASSEWORD CHAR(20) NOT NULL,
     datecreation DATE NOT NULL,
-    Session TEXT not NULL,
+    Session TEXT,
     Expared DATE NOT NULL
 );
 
