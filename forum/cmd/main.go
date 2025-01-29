@@ -5,14 +5,23 @@ import (
 	"forum/backend"
 	routes "forum/cmd/routers"
 	"forum/database"
+	"log"
 	"net/http"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func main() {
+func init() {
+	db, err := database.InitDatabase()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	backend.DB = database.InitDatabase()
+	backend.DB = db
+}
+
+func main() {
+	defer backend.DB.Close()
 	routes.RegisterRoutes()
 
 	fmt.Println("your serve on : http://localhost:8080")
