@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"database/sql"
-	"fmt"
 	"forum/backend/models"
 	"forum/middleware"
 	"net/http"
@@ -35,13 +34,19 @@ func GetDataHomePage(r *http.Request, db *sql.DB) *models.HomePage {
 	id_user := -1
 
 	if err == nil {
+		HomePage.IsLogged = true
 		ID, Name := models.GetInfos(db, token.Value)
+		HomePage.UserName = Name
+		totalLikes, _ := models.GetTotalLikesByUser(db, ID)
+		HomePage.TotalLikes = totalLikes
 		id_user = ID
 
-		fmt.Println(Name)
-		fmt.Println(id_user)
 	} else {
-
+		HomePage.IsLogged = false
 	}
+
+	HomePage.PostCat, _ = models.GetAllPostCat(db, id_user)
+	HomePage.Categories, _ = models.GetAllCategories(db)
+
 	return HomePage
 }
