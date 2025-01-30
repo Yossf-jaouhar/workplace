@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"text/template"
 )
@@ -11,8 +10,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		HandleError(w, http.StatusMethodNotAllowed)
 		return
 	}
-
-	fmt.Println(r.Cookies())
 
 	tmpl, err := template.ParseFiles("frontend/templete/indix.html")
 	if err != nil {
