@@ -95,19 +95,19 @@ main{
 
 main article {
     width: 70%;
+
     margin: 0%;
     padding: 0%;
-
+   
 }
 
 
 main article .creat-post {
     
-    text-align: right;
-    
+   text-align: right;
     margin-top: 30px;
 
-   
+ 
 
 }
 
@@ -115,7 +115,7 @@ main article .creat-post {
 main article .creat-post button {
     width: 120px;
     height: 40px;
-    margin-right: 20px;
+  
     border-radius: 8px;
     font-family: sans-serif;
     font-weight: bold;
@@ -130,15 +130,9 @@ main article .creat-post button {
 
 main article .post {
     
-    margin-top: 70px;
+    margin-top: 40px;
    
     background-color: var(--bg);
-   
-   
-    
-
-   
-   
     border-radius: 8px;
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
 
@@ -146,8 +140,6 @@ main article .post {
     .userbar {
         height: 40px;
         width: 100%;
-        
-        
     }
 
     .userbar ul {
@@ -217,24 +209,15 @@ main article .post .content h2{
     color: black;
 }
 
-
-
-
-
-
 main aside {
-  
     width: 300px;
     height: 100vh;
-    flex-wrap: wrap;
-
-   
+    flex-wrap: wrap; 
 }
 
 
 
 main aside .mypost {
-   
     background-color: var(--bg);
     margin-top: 30px;
     margin-bottom: 20px;
@@ -244,18 +227,36 @@ main aside .mypost {
     font-weight: bold;
     color: var(--background);
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
+   
 }
 
+main aside .mypost .imageandname {
+    display: flex;
+    margin-left: 5%;
+    padding-top: 10px;
+    width: 90%;
+    border-bottom: #9c9c9c solid;
+    align-items: center;
+}
 
+main aside .mypost .imageandname .image i {
+    color: #2c2f33;
+}
+
+main aside .mypost .imageandname .name {
+    margin-left: 10px;
+    color: #2c2f33;
+}
+
+main aside .mypost .imageandname .icon {
+    margin-left: 10px; 
+}
 
 main aside .filter { 
-
     background-color: var(--bg);
-
     border-radius: 10px;
     margin-top: 30px;
     margin-bottom: 20px;
     height: 50%;
-
     box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
 }
