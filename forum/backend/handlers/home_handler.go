@@ -19,7 +19,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	}
 
 	Homepage := GetDataHomePage(r, db)
-
 	err := RenderTemplate(w, "index.html", Homepage, http.StatusOK)
 	if err != nil {
 		RenderError(w, http.StatusInternalServerError)
@@ -44,7 +43,6 @@ func GetDataHomePage(r *http.Request, db *sql.DB) *models.HomePage {
 	} else {
 		HomePage.IsLogged = false
 	}
-
 	HomePage.PostCat, _ = models.GetAllPostCat(db, id_user)
 	HomePage.Categories, _ = models.GetAllCategories(db)
 

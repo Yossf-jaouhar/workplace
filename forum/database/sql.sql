@@ -10,17 +10,17 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS posts (
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    uZINTEGER,
-    datecreation TEXT NOT NULL,
     Title TEXT NOT NULL,
     content TEXT NOT NULL,
+    datecreation DATE,
+    ID_User INTEGER,
     FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS comments (
+CREATE TABLE IF NOT EXISTS Comment (
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    datecreation text NOT null,
-    Status TEXT,
+    Content TEXT,
+    datecreation DATE,
     user_id INTEGER,
     post_id INTEGER,
     FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE CASCADE,
